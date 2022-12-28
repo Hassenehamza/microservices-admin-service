@@ -23,22 +23,13 @@ import java.util.List;
 public class AdminController
 {
     private final AdminService  adminService;
-    private final RestTemplate restTemplate;
+    private RestTemplate restTemplate;
 
     @Autowired
-    public AdminController(AdminService adminService, RestTemplate restTemplate)
+    public AdminController(AdminService adminService)
     {
         this.adminService = adminService;
-        this.restTemplate = restTemplate;
-    }
-
-
-    @PostMapping(value = "/add-agent")
-    public void addAgent(@RequestBody Agent agent, @RequestParam(value = "login-link") String loginLink)
-    {
-        ResponseEntity<Agent> newAgent = restTemplate.getForEntity("http://agent-service/add-agent", Agent.class);
-
-        System.out.println("passed");
+        this.restTemplate = new RestTemplate();
     }
 
     @GetMapping(value = "/admins")
